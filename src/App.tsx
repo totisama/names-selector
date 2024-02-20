@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import './App.css'
 import { NAMES_LIST } from './consts'
+import './App.css'
 
 function App () {
   const [currentName, setCurrentName] = useState('')
   const [acceptedNames, setAcceptedNames] = useState<string[]>([])
+  const [showApprovedNames, setShowApprovedNames] = useState<boolean>(false)
   const names = useRef(NAMES_LIST)
 
   const getRandomName = () => {
@@ -36,21 +37,36 @@ function App () {
     getRandomName()
   }
 
+  const displayNames = () => {
+    setShowApprovedNames(!showApprovedNames)
+  }
+
   useEffect(getRandomName, [])
 
   return (
     <main className='main'>
-      {JSON.stringify(names.current, null, 2)}
+      {/* {JSON.stringify(names.current, null, 2)} */}
       <h1 className='title'>Name Selector</h1>
-      <div className='card'>
-        <h2 className='name'>{currentName}</h2>
-      </div>
+      {showApprovedNames
+        ? (<div className='card approvedNames'>
+            <h2>Approved Names</h2>
+            <ul>
+              {acceptedNames.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          </div>)
+        : (<div className='card'>
+            <h2 className='name'>{currentName}</h2>
+          </div>)
+      }
       <div className='buttonsContainer'>
         <button className='no' onClick={discardName}>No</button>
         <button className='maybe' onClick={getRandomName}>Maybe</button>
         <button className='yes' onClick={acceptName}>Yes</button>
       </div>
-      {JSON.stringify(acceptedNames, null, 2)}
+      <button className='approved' onClick={displayNames}>Aproved names</button>
+      {/* {JSON.stringify(acceptedNames, null, 2)} */}
     </main>
   )
 }

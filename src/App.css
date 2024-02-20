@@ -27,6 +27,10 @@
   align-items: center;
 }
 
+.approvedNames {
+  flex-direction: column;
+}
+
 .name {
   font-size: 24px;
   font-weight: bold;
@@ -74,4 +78,8 @@ button:hover {
 .maybe:hover {
   background-color: rgb(255, 255, 0);
   scale: 1.1;
+}
+
+.approved {
+  background-color: rgb(21, 224, 255);
 }
