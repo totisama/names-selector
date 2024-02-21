@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { NAMES_LIST } from './consts'
 import './App.css'
+import { Button } from './Components/Button'
 
 function App () {
   const [currentName, setCurrentName] = useState('')
@@ -50,7 +51,7 @@ function App () {
       <h1 className="title">Name Selector</h1>
       {showApprovedNames
         ? (
-        <div className="card approvedNames">
+          <div className="card approvedNames">
             <h2>Approved Names</h2>
             {acceptedNames.length === 0
               ? <p>No names approved yet</p>
@@ -60,31 +61,23 @@ function App () {
                 ))}
               </ul>
             }
-        </div>
+          </div>
           )
         : (
-        <div className="card">
-          <h2 className="name">{currentName}</h2>
-        </div>
+          <div className="card">
+            <h2 className="name">{currentName}</h2>
+          </div>
           )}
       {!showApprovedNames
         ? (
           <div className="buttonsContainer">
-            <button className="no" onClick={discardName}>
-              No
-            </button>
-            <button className="maybe" onClick={getRandomName}>
-              Maybe
-            </button>
-            <button className="yes" onClick={acceptName}>
-              Yes
-            </button>
+            <Button buttonClass="no" onClick={discardName} text={'No'} />
+            <Button buttonClass="maybe" onClick={getRandomName} text={'maybe'} />
+            <Button buttonClass="yes" onClick={acceptName} text={'Yes'} />
           </div>
           )
         : null}
-      <button className="approved" onClick={displayNames}>
-        {showApprovedNames ? 'Keep looking' : 'Show Approved Names'}
-      </button>
+      <Button buttonClass="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
       {/* {JSON.stringify(acceptedNames, null, 2)} */}
     </main>
   )
