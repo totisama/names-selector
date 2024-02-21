@@ -5,7 +5,7 @@ import { Button } from './Components/Button'
 
 function App () {
   const [currentName, setCurrentName] = useState('')
-  const [acceptedNames, setAcceptedNames] = useState<string[]>([])
+  const [approvedNames, setAcceptedNames] = useState<string[]>([])
   const [showApprovedNames, setShowApprovedNames] = useState<boolean>(false)
   const names = useRef(NAMES_LIST)
 
@@ -28,7 +28,7 @@ function App () {
       return
     }
 
-    setAcceptedNames([...acceptedNames, currentName])
+    setAcceptedNames([...approvedNames, currentName])
     names.current = names.current.filter((name) => name !== currentName)
 
     getRandomName()
@@ -53,10 +53,10 @@ function App () {
         ? (
           <div className="card approvedNames">
             <h2>Approved Names</h2>
-            {acceptedNames.length === 0
+            {approvedNames.length === 0
               ? <p>No names approved yet</p>
               : <ul>
-                {acceptedNames.map((name, index) => (
+                {approvedNames.map((name, index) => (
                   <li key={index}>{name}</li>
                 ))}
               </ul>
@@ -78,7 +78,7 @@ function App () {
           )
         : null}
       <Button buttonClass="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
-      {/* {JSON.stringify(acceptedNames, null, 2)} */}
+      {/* {JSON.stringify(approvedNames, null, 2)} */}
     </main>
   )
 }
