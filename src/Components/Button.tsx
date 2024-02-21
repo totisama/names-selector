@@ -1,13 +1,14 @@
 import styled from 'styled-components'
+import { type ButtonType } from '../types'
 
 interface ButtonProps {
   text: string
   onClick: () => void
-  buttonStyle: 'yes' | 'no' | 'maybe' | 'approved'
+  buttonStyle: ButtonType
 }
 
 interface StyledButtonProps {
-  buttonStyle: 'yes' | 'no' | 'maybe' | 'approved'
+  buttonStyle: ButtonType
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
