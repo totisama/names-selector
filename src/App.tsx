@@ -15,7 +15,8 @@ function App () {
       return
     }
 
-    const randomName = names.current[Math.floor(Math.random() * names.current.length)]
+    const randomName =
+      names.current[Math.floor(Math.random() * names.current.length)]
     setCurrentName(randomName)
   }
 
@@ -27,13 +28,13 @@ function App () {
     }
 
     setAcceptedNames([...acceptedNames, currentName])
-    names.current = names.current.filter(name => name !== currentName)
+    names.current = names.current.filter((name) => name !== currentName)
 
     getRandomName()
   }
 
   const discardName = () => {
-    names.current = names.current.filter(name => name !== currentName)
+    names.current = names.current.filter((name) => name !== currentName)
     getRandomName()
   }
 
@@ -44,28 +45,46 @@ function App () {
   useEffect(getRandomName, [])
 
   return (
-    <main className='main'>
+    <main className="main">
       {/* {JSON.stringify(names.current, null, 2)} */}
-      <h1 className='title'>Name Selector</h1>
+      <h1 className="title">Name Selector</h1>
       {showApprovedNames
-        ? (<div className='card approvedNames'>
+        ? (
+        <div className="card approvedNames">
             <h2>Approved Names</h2>
-            <ul>
-              {acceptedNames.map((name, index) => (
-                <li key={index}>{name}</li>
-              ))}
-            </ul>
-          </div>)
-        : (<div className='card'>
-            <h2 className='name'>{currentName}</h2>
-          </div>)
-      }
-      <div className='buttonsContainer'>
-        <button className='no' onClick={discardName}>No</button>
-        <button className='maybe' onClick={getRandomName}>Maybe</button>
-        <button className='yes' onClick={acceptName}>Yes</button>
-      </div>
-      <button className='approved' onClick={displayNames}>Aproved names</button>
+            {acceptedNames.length === 0
+              ? <p>No names approved yet</p>
+              : <ul>
+                {acceptedNames.map((name, index) => (
+                  <li key={index}>{name}</li>
+                ))}
+              </ul>
+            }
+        </div>
+          )
+        : (
+        <div className="card">
+          <h2 className="name">{currentName}</h2>
+        </div>
+          )}
+      {!showApprovedNames
+        ? (
+          <div className="buttonsContainer">
+            <button className="no" onClick={discardName}>
+              No
+            </button>
+            <button className="maybe" onClick={getRandomName}>
+              Maybe
+            </button>
+            <button className="yes" onClick={acceptName}>
+              Yes
+            </button>
+          </div>
+          )
+        : null}
+      <button className="approved" onClick={displayNames}>
+        {showApprovedNames ? 'Keep looking' : 'Show Approved Names'}
+      </button>
       {/* {JSON.stringify(acceptedNames, null, 2)} */}
     </main>
   )
