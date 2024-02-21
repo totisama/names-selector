@@ -1,7 +1,80 @@
 import { useEffect, useRef, useState } from 'react'
 import { NAMES_LIST } from './consts'
-import './App.css'
 import { Button } from './Components/Button'
+import styled from 'styled-components'
+import './App.css'
+
+const Main = styled.main`
+  background-color: antiquewhite;
+  height: 100dvh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`
+
+const Title = styled.h1`
+  font-size: 48px;
+  font-weight: bold;
+`
+
+const Card = styled.section`
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+`
+
+const ApprovedNames = styled(Card)`
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    height: 400px;
+    width: 300px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    li {
+      font-size: 20px;
+      font-weight: semi-bold;
+      margin: 5px 0;
+      width: min-content;
+      background-color: rgb(191, 228, 217);
+      padding: 5px 15px;
+      border-radius: 15px;
+    }
+  }
+`
+
+const ButtonsContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+`
 
 function App () {
   const [currentName, setCurrentName] = useState('')
@@ -46,12 +119,12 @@ function App () {
   useEffect(getRandomName, [])
 
   return (
-    <main className="main">
+    <Main>
       {/* {JSON.stringify(names.current, null, 2)} */}
-      <h1 className="title">Name Selector</h1>
+      <Title>Name Selector</Title>
       {showApprovedNames
         ? (
-          <div className="card approvedNames">
+          <ApprovedNames>
             <h2>Approved Names</h2>
             {approvedNames.length === 0
               ? <p>No names approved yet</p>
@@ -61,25 +134,25 @@ function App () {
                 ))}
               </ul>
             }
-          </div>
+          </ApprovedNames>
           )
         : (
-          <div className="card">
-            <h2 className="name">{currentName}</h2>
-          </div>
+          <Card >
+            <h2>{currentName}</h2>
+          </Card>
           )}
       {!showApprovedNames
         ? (
-          <div className="buttonsContainer">
-            <Button buttonClass="no" onClick={discardName} text={'No'} />
-            <Button buttonClass="maybe" onClick={getRandomName} text={'maybe'} />
-            <Button buttonClass="yes" onClick={acceptName} text={'Yes'} />
-          </div>
+          <ButtonsContainer>
+            <Button buttonStyle="no" onClick={discardName} text={'No'} />
+            <Button buttonStyle="maybe" onClick={getRandomName} text={'maybe'} />
+            <Button buttonStyle="yes" onClick={acceptName} text={'Yes'} />
+          </ButtonsContainer>
           )
         : null}
-      <Button buttonClass="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
+      <Button buttonStyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
       {/* {JSON.stringify(approvedNames, null, 2)} */}
-    </main>
+    </Main>
   )
 }
 
