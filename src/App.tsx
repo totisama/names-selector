@@ -89,17 +89,12 @@ function App () {
       return
     }
 
-    const randomName =
-      names.current[Math.floor(Math.random() * names.current.length)]
+    const randomName = names.current[Math.floor(Math.random() * names.current.length)]
     setCurrentName(randomName)
   }
 
   const acceptName = () => {
-    if (names.current.length <= 0) {
-      setCurrentName('No more names available!')
-
-      return
-    }
+    if (names.current.length <= 0) return
 
     setAcceptedNames([...approvedNames, currentName])
     names.current = names.current.filter((name) => name !== currentName)
@@ -108,6 +103,8 @@ function App () {
   }
 
   const discardName = () => {
+    if (names.current.length <= 0) return
+
     names.current = names.current.filter((name) => name !== currentName)
     getRandomName()
   }
