@@ -78,7 +78,11 @@ const ButtonsContainer = styled.section`
 
 function App () {
   const [currentName, setCurrentName] = useState('')
-  const [approvedNames, setAcceptedNames] = useState<string[]>([])
+  const [approvedNames, setAcceptedNames] = useState<string[]>(() => {
+    const storedNames = localStorage.getItem('approvedNames')
+
+    return storedNames !== null ? JSON.parse(storedNames) as string[] : []
+  })
   const [showApprovedNames, setShowApprovedNames] = useState<boolean>(false)
   const names = useRef(NAMES_LIST)
 
@@ -90,13 +94,18 @@ function App () {
     }
 
     const randomName = names.current[Math.floor(Math.random() * names.current.length)]
+
     setCurrentName(randomName)
+    localStorage.setItem('names', JSON.stringify(names.current))
   }
 
   const acceptName = () => {
     if (names.current.length <= 0) return
 
-    setAcceptedNames([...approvedNames, currentName])
+    const approved = [...approvedNames, currentName]
+
+    setAcceptedNames(approved)
+    localStorage.setItem('approvedNames', JSON.stringify(approved))
     names.current = names.current.filter((name) => name !== currentName)
 
     getRandomName()
@@ -113,7 +122,13 @@ function App () {
     setShowApprovedNames(!showApprovedNames)
   }
 
-  useEffect(getRandomName, [])
+  useEffect(() => {
+    const storedNames = localStorage.getItem('names')
+
+    names.current = storedNames !== null ? JSON.parse(storedNames) as string[] : NAMES_LIST
+
+    getRandomName()
+  }, [])
 
   return (
     <Main>
