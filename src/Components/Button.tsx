@@ -4,11 +4,11 @@ import { type ButtonType } from '../types'
 interface ButtonProps {
   text: string
   onClick: () => void
-  buttonStyle: ButtonType
+  buttonstyle: ButtonType
 }
 
 interface StyledButtonProps {
-  buttonStyle: ButtonType
+  buttonstyle: ButtonType
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -17,11 +17,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   border-radius: 10px;
   font-size: 24px;
   background-color: ${(props) =>
-    props.buttonStyle === 'yes'
+    props.buttonstyle === 'yes'
     ? 'rgb(21, 224, 21);'
-      : props.buttonStyle === 'no'
+      : props.buttonstyle === 'no'
     ? 'rgb(250, 92, 92);'
-      : props.buttonStyle === 'maybe'
+      : props.buttonstyle === 'maybe'
     ? 'rgb(242, 242, 79);'
       : 'rgb(21, 224, 255);'
   };
@@ -29,11 +29,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   &:hover {
     cursor: pointer;
     background-color: ${(props) =>
-      props.buttonStyle === 'yes'
+      props.buttonstyle === 'yes'
       ? 'rgb(0, 255, 0);'
-        : props.buttonStyle === 'no'
+        : props.buttonstyle === 'no'
       ? 'rgb(255, 0, 0);'
-        : props.buttonStyle === 'maybe'
+        : props.buttonstyle === 'maybe'
       ? 'rgb(255, 255, 0);'
         : 'rgb(0, 255, 255);'
       }
@@ -41,9 +41,9 @@ const StyledButton = styled.button<StyledButtonProps>`
   }
 `
 
-export const Button = ({ text, onClick, buttonStyle }: ButtonProps) => {
+export const Button = ({ text, onClick, buttonstyle }: ButtonProps) => {
   return (
-    <StyledButton buttonStyle={buttonStyle} onClick={onClick}>
+    <StyledButton buttonstyle={buttonstyle} onClick={onClick}>
       {text}
     </StyledButton>
   )

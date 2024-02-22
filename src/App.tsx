@@ -141,13 +141,13 @@ function App () {
       {!showApprovedNames
         ? (
           <ButtonsContainer>
-            <Button buttonStyle="no" onClick={discardName} text={'No'} />
-            <Button buttonStyle="maybe" onClick={getRandomName} text={'maybe'} />
-            <Button buttonStyle="yes" onClick={acceptName} text={'Yes'} />
+            <Button buttonstyle="no" onClick={discardName} text={'No'} />
+            <Button buttonstyle="maybe" onClick={getRandomName} text={'maybe'} />
+            <Button buttonstyle="yes" onClick={acceptName} text={'Yes'} />
           </ButtonsContainer>
           )
         : null}
-      <Button buttonStyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
+      <Button buttonstyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
       {/* {JSON.stringify(approvedNames, null, 2)} */}
     </Main>
   )
