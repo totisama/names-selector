@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { DraggableList } from './DraggableList'
 
 const Card = styled.section`
   background-color: white;
@@ -23,44 +24,28 @@ const ApprovedNamesContainer = styled(Card)`
 const ApprovedNamesTitle = styled.h2`
   font-size: 28px;
   font-weight: bold;
-`
+  margin-bottom: 10px;
+  `
 
-const ApprovedNamesList = styled.ul`
-  list-style: none;
-  padding: 0;
-  height: 400px;
-  width: 300px;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const ApprovedNamesItem = styled.li`
-  font-size: 20px;
+const ApprovedNamesSub = styled.p`
+  font-size: 18px;
   font-weight: semi-bold;
-  margin: 5px 0;
-  width: min-content;
-  background-color: rgb(191, 228, 217);
-  padding: 5px 15px;
-  border-radius: 15px;
+  margin-top: 0px;
 `
 
 interface ApprovedNamesProps {
   approvedNames: string[]
+  setApprovedNames: (names: string[]) => void
 }
 
-export const ApprovedNames = ({ approvedNames }: ApprovedNamesProps) => {
+export const ApprovedNames = ({ approvedNames, setApprovedNames }: ApprovedNamesProps) => {
   return (
     <ApprovedNamesContainer>
       <ApprovedNamesTitle>Approved Names</ApprovedNamesTitle>
+      <ApprovedNamesSub>Drag your favorite name to the top!</ApprovedNamesSub>
       {approvedNames.length === 0
         ? <p>No names approved yet</p>
-        : <ApprovedNamesList>
-          {approvedNames.map((name, index) => (
-            <ApprovedNamesItem key={index}>{name}</ApprovedNamesItem>
-          ))}
-        </ApprovedNamesList>
+        : <DraggableList setApprovedNames={setApprovedNames} items={approvedNames} />
       }
     </ApprovedNamesContainer>
   )

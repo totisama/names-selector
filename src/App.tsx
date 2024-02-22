@@ -76,7 +76,7 @@ const Buttons = styled.section`
 
 function App () {
   const [currentName, setCurrentName] = useState('')
-  const [approvedNames, setAcceptedNames] = useState<string[]>(() => {
+  const [approvedNames, setApprovedNames] = useState<string[]>(() => {
     const storedNames = localStorage.getItem('approvedNames')
 
     return storedNames !== null ? JSON.parse(storedNames) as string[] : []
@@ -102,7 +102,7 @@ function App () {
 
     const approved = [...approvedNames, currentName]
 
-    setAcceptedNames(approved)
+    setApprovedNames(approved)
     localStorage.setItem('approvedNames', JSON.stringify(approved))
     names.current = names.current.filter((name) => name !== currentName)
 
@@ -124,7 +124,7 @@ function App () {
     names.current = NAMES_LIST
     localStorage.removeItem('names')
     localStorage.removeItem('approvedNames')
-    setAcceptedNames([])
+    setApprovedNames([])
     getRandomName()
   }
 
@@ -141,7 +141,7 @@ function App () {
       {/* {JSON.stringify(names.current, null, 2)} */}
       <Title>Name Selector</Title>
       {showApprovedNames
-        ? <ApprovedNames approvedNames={approvedNames} />
+        ? <ApprovedNames setApprovedNames={setApprovedNames} approvedNames={approvedNames} />
         : (
           <Card>
             <CardTitle>{currentName}</CardTitle>
