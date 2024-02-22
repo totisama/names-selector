@@ -31,49 +31,75 @@ const Card = styled.section`
   text-align: center;
   justify-content: center;
   align-items: center;
+`
 
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
-  }
+const CardTitle = styled.h2`
+  font-size: 24px;
+  font-weight: bold;
 `
 
 const ApprovedNames = styled(Card)`
   flex-direction: column;
   width: 500px;
   height: 500px;
-
-  h2 {
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    height: 400px;
-    width: 300px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    li {
-      font-size: 20px;
-      font-weight: semi-bold;
-      margin: 5px 0;
-      width: min-content;
-      background-color: rgb(191, 228, 217);
-      padding: 5px 15px;
-      border-radius: 15px;
-    }
-  }
 `
 
-const ButtonsContainer = styled.section`
+const ApprovedNamesTitle = styled.h2`
+  font-size: 28px;
+  font-weight: bold;
+`
+
+const ApprovedNamesList = styled.ul`
+  list-style: none;
+  padding: 0;
+  height: 400px;
+  width: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const ApprovedNamesItem = styled.li`
+  font-size: 20px;
+  font-weight: semi-bold;
+  margin: 5px 0;
+  width: min-content;
+  background-color: rgb(191, 228, 217);
+  padding: 5px 15px;
+  border-radius: 15px;
+`
+
+const OptionsButtons = styled.section`
   display: flex;
   justify-content: space-between;
   width: 400px;
+`
+
+const CleanButton = styled.button`
+  border: black 1px solid;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 146, 44);
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(255, 176, 90);
+    scale: 1.05;
+  }
+`
+
+const Clean = styled.span`
+  margin-left: 10px;
+`
+
+const Buttons = styled.section`
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
 `
 
 function App () {
@@ -122,6 +148,14 @@ function App () {
     setShowApprovedNames(!showApprovedNames)
   }
 
+  const clean = () => {
+    names.current = NAMES_LIST
+    localStorage.removeItem('names')
+    localStorage.removeItem('approvedNames')
+    setAcceptedNames([])
+    getRandomName()
+  }
+
   useEffect(() => {
     const storedNames = localStorage.getItem('names')
 
@@ -137,32 +171,38 @@ function App () {
       {showApprovedNames
         ? (
           <ApprovedNames>
-            <h2>Approved Names</h2>
+            <ApprovedNamesTitle>Approved Names</ApprovedNamesTitle>
             {approvedNames.length === 0
               ? <p>No names approved yet</p>
-              : <ul>
+              : <ApprovedNamesList>
                 {approvedNames.map((name, index) => (
-                  <li key={index}>{name}</li>
+                  <ApprovedNamesItem key={index}>{name}</ApprovedNamesItem>
                 ))}
-              </ul>
+              </ApprovedNamesList>
             }
           </ApprovedNames>
           )
         : (
           <Card >
-            <h2>{currentName}</h2>
+            <CardTitle>{currentName}</CardTitle>
           </Card>
           )}
       {!showApprovedNames
         ? (
-          <ButtonsContainer>
+          <OptionsButtons>
             <Button buttonstyle="no" onClick={discardName} text={'No'} />
             <Button buttonstyle="maybe" onClick={getRandomName} text={'maybe'} />
             <Button buttonstyle="yes" onClick={acceptName} text={'Yes'} />
-          </ButtonsContainer>
+          </OptionsButtons>
           )
         : null}
-      <Button buttonstyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
+      <Buttons>
+        <Button buttonstyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
+        <CleanButton onClick={clean}>
+          Reset
+          <Clean role="img" aria-label="clean">🧹</Clean>
+        </CleanButton>
+      </Buttons>
       {/* {JSON.stringify(approvedNames, null, 2)} */}
     </Main>
   )
