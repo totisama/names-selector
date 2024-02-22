@@ -158,10 +158,11 @@ function App () {
         : null}
       <Buttons>
         <Button buttonstyle="approved" onClick={displayNames} text={showApprovedNames ? 'Keep looking' : 'Show Approved Names'} />
-        <CleanButton onClick={clean}>
-          Reset
-          <Clean role="img" aria-label="clean">🧹</Clean>
-        </CleanButton>
+        {showApprovedNames &&
+          <CleanButton onClick={clean}>
+            <img src='/trash.svg' alt='Trash icon' />
+          </CleanButton>
+        }
       </Buttons>
       {/* {JSON.stringify(approvedNames, null, 2)} */}
     </Main>
