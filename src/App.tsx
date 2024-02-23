@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { NAMES_LIST } from './consts'
 import { Button } from './Components/Button'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import './App.css'
 import { ApprovedNames } from './Components/ApprovedNames'
 
@@ -45,6 +45,12 @@ const OptionsButtons = styled.section`
   width: 400px;
 `
 
+const clean = keyframes`
+  0% { background-color: rgb(255, 146, 44); }
+  50% { background-color: rgb(255, 55, 55); }
+  100% { background-color: rgb(255, 146, 44); }
+`
+
 const CleanButton = styled.button`
   display: flex;
   justify-content: center;
@@ -59,8 +65,8 @@ const CleanButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: rgb(255, 176, 90);
     scale: 1.05;
+    animation: ${clean} 1s linear infinite;
 
     img {
       scale: 1.05;
