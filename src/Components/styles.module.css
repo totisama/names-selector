@@ -1,0 +1,11 @@
+.content > div:nth-child(1) {
+  background: linear-gradient(135deg, #75ef45 0%, #5db939 100%);
+}
+
+.content > div:nth-child(2) {
+  background: linear-gradient(135deg, #f5e429 0%, #d6cc14 100%);
+}
+
+.content > div:nth-child(3) {
+  background: linear-gradient(135deg, #c34f4f 0%, #e44141 100%);
+}
