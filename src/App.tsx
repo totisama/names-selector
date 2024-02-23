@@ -142,12 +142,22 @@ function App () {
     getRandomName()
   }, [])
 
+  useEffect(() => {
+    if (showApprovedNames) return
+
+    const storageApprovedNames = localStorage.getItem('approvedNames')
+
+    if (storageApprovedNames === null) return
+
+    setApprovedNames(JSON.parse(storageApprovedNames) as string[])
+  }, [showApprovedNames])
+
   return (
     <Main>
       {/* {JSON.stringify(names.current, null, 2)} */}
       <Title>Name Selector</Title>
       {showApprovedNames
-        ? <ApprovedNames setApprovedNames={setApprovedNames} approvedNames={approvedNames} />
+        ? <ApprovedNames approvedNames={approvedNames} />
         : (
           <Card>
             <CardTitle>{currentName}</CardTitle>

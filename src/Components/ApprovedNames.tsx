@@ -35,17 +35,16 @@ const ApprovedNamesSub = styled.p`
 
 interface ApprovedNamesProps {
   approvedNames: string[]
-  setApprovedNames: (names: string[]) => void
 }
 
-export const ApprovedNames = ({ approvedNames, setApprovedNames }: ApprovedNamesProps) => {
+export const ApprovedNames = ({ approvedNames }: ApprovedNamesProps) => {
   return (
     <ApprovedNamesContainer>
       <ApprovedNamesTitle>Approved Names</ApprovedNamesTitle>
-      <ApprovedNamesSub>Drag your favorite name to the top!</ApprovedNamesSub>
+      <ApprovedNamesSub>Drag your favorite names to the top!</ApprovedNamesSub>
       {approvedNames.length === 0
         ? <p>No names approved yet</p>
-        : <DraggableList setApprovedNames={setApprovedNames} items={approvedNames} />
+        : <DraggableList items={approvedNames} />
       }
     </ApprovedNamesContainer>
   )

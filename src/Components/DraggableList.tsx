@@ -37,24 +37,31 @@ const ItemsList = styled.div`
     touch-action: none;
     user-select: none;
 
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
 `
 
-export function DraggableList ({ items, setApprovedNames }: { items: string[], setApprovedNames: (names: string[]) => void }) {
+export function DraggableList ({
+  items
+}: {
+  items: string[]
+}) {
   const order = useRef(items.map((_, index) => index))
   const [springs, api] = useSprings(items.length, fn(order.current))
   const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
     const curIndex = order.current.indexOf(originalIndex)
-    const curRow = clamp(Math.round((curIndex * 100 + y) / 100), 0, items.length - 1)
+    const curRow = clamp(
+      Math.round((curIndex * 100 + y) / 100),
+      0,
+      items.length - 1
+    )
     const newOrder = swap(order.current, curIndex, curRow) as number[]
     api.start(fn(newOrder, active, originalIndex, curIndex, y))
 
     if (active) return
 
-    order.current = newOrder
     const lastOrderString = localStorage.getItem('approvedNames')
 
     if (lastOrderString === null) return
@@ -62,25 +69,29 @@ export function DraggableList ({ items, setApprovedNames }: { items: string[], s
     const lastOrder = JSON.parse(lastOrderString) as string[]
     const newNamesOrder = []
 
-    for (let index = 0; index < order.current.length; index++) {
-      const element = order.current[index]
+    for (let index = 0; index < newOrder.length; index++) {
+      const element = newOrder[index]
       newNamesOrder.push(lastOrder[element])
     }
 
     localStorage.setItem('approvedNames', JSON.stringify(newNamesOrder))
-    setApprovedNames(newNamesOrder)
+    order.current = newOrder
   })
 
   return (
     <MainContainer>
-      <ItemsList className={styles.content} style={{ height: items.length * 50 }}>
+      <ItemsList
+        className={styles.content}
+      >
         {springs.map(({ zIndex, shadow, y, scale }, i) => (
           <animated.div
             {...bind(i)}
             key={i}
             style={{
               zIndex,
-              boxShadow: shadow.to(s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`),
+              boxShadow: shadow.to(
+                (s) => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`
+              ),
               y,
               scale
             }}

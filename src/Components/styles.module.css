@@ -1,7 +1,11 @@
-.content > div:nth-child(even) {
-  background: linear-gradient(135deg, #f6d365 0%, rgb(224, 146, 124) 100%);
+.content > div:nth-child(1) {
+  background: linear-gradient(135deg, #75ef45 0%, #5db939 100%);
 }
 
-.content > div:nth-child(odd) {
-  background: linear-gradient(135deg, #4fc3bc 0%, #7c5a91 100%);
+.content > div:nth-child(2) {
+  background: linear-gradient(135deg, #f5e429 0%, #d6cc14 100%);
+}
+
+.content > div:nth-child(3) {
+  background: linear-gradient(135deg, #c34f4f 0%, #e44141 100%);
 }
