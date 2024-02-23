@@ -4,6 +4,7 @@ import { Button } from './Components/Button'
 import styled, { keyframes } from 'styled-components'
 import './App.css'
 import { ApprovedNames } from './Components/ApprovedNames'
+import TextTransition, { presets } from 'react-text-transition'
 
 const Main = styled.main`
   background-color: antiquewhite;
@@ -34,9 +35,8 @@ const Card = styled.section`
   align-items: center;
 `
 
-const CardTitle = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
+const CardTitle = styled.div`
+  display: inline-block;
 `
 
 const OptionsButtons = styled.section`
@@ -160,7 +160,17 @@ function App () {
         ? <ApprovedNames approvedNames={approvedNames} />
         : (
           <Card>
-            <CardTitle>{currentName}</CardTitle>
+            <CardTitle>
+              <TextTransition
+                style={{ width: '100%', fontSize: '40px', fontWeight: 'bold', textAlign: 'center' }}
+                direction='down'
+                delay={200}
+                inline
+                springConfig={presets.gentle}
+              >
+                {currentName}
+              </TextTransition>
+            </CardTitle>
           </Card>
           )}
       {!showApprovedNames
