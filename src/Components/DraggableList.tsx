@@ -31,7 +31,7 @@ const ItemsList = styled.div`
     text-align: center;
     line-height: 40px;
     font-size: 14.5px;
-    background: lightblue;
+    background: linear-gradient(135deg, #4fc3ae 0%, #41e4dc 100%);
     text-transform: uppercase;
     letter-spacing: 2px;
     touch-action: none;
